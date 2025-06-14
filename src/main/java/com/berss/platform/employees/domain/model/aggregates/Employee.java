@@ -3,7 +3,7 @@ package com.berss.platform.employees.domain.model.aggregates;
 import com.berss.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
 import jakarta.persistence.*;
 
-/* Value Object */
+/* Value Objects */
 import com.berss.platform.employees.domain.model.valueobjects.EmployeeName;
 import com.berss.platform.employees.domain.model.valueobjects.EntryDate;
 import com.berss.platform.employees.domain.model.valueobjects.TeamId;
@@ -58,12 +58,13 @@ public class Employee extends AuditableAbstractAggregateRoot<Employee> {
         this.companyId = new CompanyId(command.companyId());
     }
 
+    // Getters
+
     public String getFullName() {
         return name.getFullName();
     }
 
     public String getOccupation() {
-
         return occupation;
     }
 
@@ -78,6 +79,8 @@ public class Employee extends AuditableAbstractAggregateRoot<Employee> {
     public Long getCompanyId() {
         return companyId.getValue();
     }
+
+    // Setters / Updaters
 
     public void updateName(String firstName, String lastName) {
         this.name = new EmployeeName(firstName, lastName);
