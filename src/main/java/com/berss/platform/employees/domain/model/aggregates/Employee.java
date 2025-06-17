@@ -6,8 +6,8 @@ import jakarta.persistence.*;
 /* Value Objects */
 import com.berss.platform.employees.domain.model.valueobjects.EmployeeName;
 import com.berss.platform.employees.domain.model.valueobjects.EntryDate;
-import com.berss.platform.employees.domain.model.valueobjects.TeamId;
 import com.berss.platform.employees.domain.model.valueobjects.CompanyId;
+import com.berss.platform.employees.domain.model.valueobjects.TeamName;
 
 import java.time.LocalDate;
 
@@ -26,7 +26,7 @@ public class Employee extends AuditableAbstractAggregateRoot<Employee> {
     private EntryDate entryDate;
 
     @Embedded
-    private TeamId teamId;
+    private TeamName teamName;
 
     @Embedded
     private CompanyId companyId;
@@ -34,11 +34,11 @@ public class Employee extends AuditableAbstractAggregateRoot<Employee> {
     /**
      * Constructor with all fields
      */
-    public Employee(String firstName, String lastName, String occupation, LocalDate entryDate, Long teamId, Long companyId) {
+    public Employee(String firstName, String lastName, String occupation, LocalDate entryDate, String teamName, Long companyId) {
         this.name = new EmployeeName(firstName, lastName);
         this.occupation = occupation;
         this.entryDate = new EntryDate(command.entryDate());
-        this.teamId = new TeamId(teamId);
+        this.teamName = new TeamName(teamName);
         this.companyId = new CompanyId(companyId);
     }
 
@@ -54,7 +54,7 @@ public class Employee extends AuditableAbstractAggregateRoot<Employee> {
         this.name = new EmployeeName(command.firstName(), command.lastName());
         this.occupation = command.occupation();
         this.entryDate = command.entryDate();
-        this.teamId = new TeamId(command.teamId());
+        this.teamName = new TeamName(command.teamName());
         this.companyId = new CompanyId(command.companyId());
     }
 
@@ -72,9 +72,7 @@ public class Employee extends AuditableAbstractAggregateRoot<Employee> {
         return entryDate;
     }
 
-    public Long getTeamId() {
-        return teamId.getValue();
-    }
+    public String getTeamName() { return teamName.getValue(); }
 
     public Long getCompanyId() {
         return companyId.getValue();
@@ -94,11 +92,10 @@ public class Employee extends AuditableAbstractAggregateRoot<Employee> {
         this.entryDate = new EntryDate(newDate);
     }
 
-    public void updateTeamId(Long teamId) {
-        this.teamId = new TeamId(teamId);
-    }
+    public void updateTeamName(String newTeamName) { this.teamName = new TeamName(newTeamName); }
 
     public void updateCompanyId(Long companyId) {
         this.companyId = new CompanyId(companyId);
     }
+
 }
