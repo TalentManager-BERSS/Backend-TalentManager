@@ -1,5 +1,6 @@
 package com.berss.platform.employees.domain.model.aggregates;
 
+import com.berss.platform.employees.domain.model.commands.CreateEmployeeCommand;
 import com.berss.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
 import jakarta.persistence.*;
 
@@ -25,6 +26,7 @@ public class Employee extends AuditableAbstractAggregateRoot<Employee> {
     @Embedded
     private EntryDate entryDate;
 
+
     @Embedded
     private TeamName teamName;
 
@@ -37,7 +39,7 @@ public class Employee extends AuditableAbstractAggregateRoot<Employee> {
     public Employee(String firstName, String lastName, String occupation, LocalDate entryDate, String teamName, Long companyId) {
         this.name = new EmployeeName(firstName, lastName);
         this.occupation = occupation;
-        this.entryDate = new EntryDate(command.entryDate());
+        this.entryDate = new EntryDate(entryDate);
         this.teamName = new TeamName(teamName);
         this.companyId = new CompanyId(companyId);
     }
@@ -53,7 +55,7 @@ public class Employee extends AuditableAbstractAggregateRoot<Employee> {
     public Employee(CreateEmployeeCommand command) {
         this.name = new EmployeeName(command.firstName(), command.lastName());
         this.occupation = command.occupation();
-        this.entryDate = command.entryDate();
+        this.entryDate = new EntryDate(command.entryDate());
         this.teamName = new TeamName(command.teamName());
         this.companyId = new CompanyId(command.companyId());
     }
@@ -64,12 +66,16 @@ public class Employee extends AuditableAbstractAggregateRoot<Employee> {
         return name.getFullName();
     }
 
+    public String getFirstName() { return name.firstName();}
+
+    public String getLastName() { return name.lastName();}
+
     public String getOccupation() {
         return occupation;
     }
 
-    public EntryDate getEntryDate() {
-        return entryDate;
+    public LocalDate getEntryDate() {
+        return entryDate.entryDate();
     }
 
     public String getTeamName() { return teamName.getValue(); }
@@ -79,6 +85,15 @@ public class Employee extends AuditableAbstractAggregateRoot<Employee> {
     }
 
     // Setters / Updaters
+
+
+    public Employee updateInformation(String firstName, String lastName, String occupation, LocalDate entryDate, String teamName){
+        this.name = new EmployeeName(firstName, lastName);
+        this.occupation = occupation;
+        this.entryDate = new EntryDate(entryDate);
+        this.teamName = new TeamName(teamName);
+        return this;
+    }
 
     public void updateName(String firstName, String lastName) {
         this.name = new EmployeeName(firstName, lastName);
@@ -92,7 +107,9 @@ public class Employee extends AuditableAbstractAggregateRoot<Employee> {
         this.entryDate = new EntryDate(newDate);
     }
 
-    public void updateTeamName(String newTeamName) { this.teamName = new TeamName(newTeamName); }
+    public void updateTeamName(String newTeamName) {
+        this.teamName = new TeamName(newTeamName);
+    }
 
     public void updateCompanyId(Long companyId) {
         this.companyId = new CompanyId(companyId);
