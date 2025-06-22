@@ -24,4 +24,12 @@ public record CreationDate(LocalDate date) {
     public LocalDate getValue() {
         return date;
     }
+
+    public Integer getMonth() {
+        return date.getMonthValue();
+    }
+
+    public Integer getYear() {
+        return date.getYear();
+    }
 }

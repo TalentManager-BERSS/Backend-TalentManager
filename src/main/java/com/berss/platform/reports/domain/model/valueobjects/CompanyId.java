@@ -5,7 +5,7 @@ import jakarta.persistence.Embeddable;
 /**
  * Value object representing the company id.
  * @summary
- * This value object is used to represent the company id. It is an embeddable object that is used to represent the company id in the employee aggregate.
+ * This value object is used to represent the company id.
  * It throws an IllegalArgumentException if the company id is null or less than 1.
  * @param companyId The company id. It cannot be null or less than 1.
  * @see IllegalArgumentException
