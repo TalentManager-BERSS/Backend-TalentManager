@@ -14,4 +14,12 @@ public record YearMonthPeriod(int year, int month) {
     public String asString() {
         return "%04d-%02d".formatted(year, month);
     }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public int getYear() {
+        return year;
+    }
 }

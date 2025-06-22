@@ -1,13 +1,17 @@
 package com.berss.platform.reports.domain.model.aggregates;
 
+import com.berss.platform.reports.domain.model.commands.UpdateReportCommand;
 import com.berss.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
-/* Value Objects: */
+/* Value Objects */
 import com.berss.platform.reports.domain.model.valueobjects.CompanyId;
 import com.berss.platform.reports.domain.model.valueobjects.CreationDate;
-import com.berss.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
+
+/* Commands */
+import com.berss.platform.reports.domain.model.commands.CreateReportCommand;
+import lombok.Getter;
 
 /**
  * Report Aggregate Root
@@ -15,15 +19,19 @@ import com.berss.platform.shared.domain.model.aggregates.AuditableAbstractAggreg
 @Entity
 public class Report extends AuditableAbstractAggregateRoot<Report> {
 
+    @Getter
     private String title;
 
+    @Getter
     @Column(columnDefinition = "TEXT")
     private String content;
 
     @Embedded
+    @Column(name = "createdAt")
     private CreationDate createdAt;
 
     @Embedded
+    @Column(name = "companyId")
     private CompanyId companyId;
 
     /**
@@ -52,15 +60,8 @@ public class Report extends AuditableAbstractAggregateRoot<Report> {
     }
 
     // Getters
-    public String getTitle() {
-        return title;
-    }
 
-    public String getContent() {
-        return content;
-    }
-
-    public LocalDate getCreatedAt() {
+    public LocalDate getCreationDate() {
         return createdAt.getValue();
     }
 
@@ -80,5 +81,10 @@ public class Report extends AuditableAbstractAggregateRoot<Report> {
 
     public void updateCreatedAt(LocalDate newDate) {
         this.createdAt = new CreationDate(newDate);
+    }
+
+    public void updateReport(UpdateReportCommand command) {
+        this.title = command.title();
+        this.content = command.content();
     }
 }

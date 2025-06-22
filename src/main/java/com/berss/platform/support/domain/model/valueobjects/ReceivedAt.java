@@ -1,6 +1,7 @@
 package com.berss.platform.support.domain.model.valueobjects;
 
 import jakarta.persistence.Embeddable;
+
 import java.time.LocalDateTime;
 
 @Embeddable

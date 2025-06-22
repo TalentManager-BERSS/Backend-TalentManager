@@ -1,9 +1,20 @@
 package com.berss.platform.reports.domain.model.aggregates;
 
+import com.berss.platform.reports.domain.model.commands.UpdateReportCommand;
 import com.berss.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
 import jakarta.persistence.*;
 
+// Value Objects
+
+import com.berss.platform.reports.domain.model.valueobjects.EmployeeId;
+import com.berss.platform.reports.domain.model.valueobjects.CompanyId;
 import com.berss.platform.reports.domain.model.valueobjects.YearMonthPeriod;
+import com.berss.platform.reports.domain.model.valueobjects.Score;
+import com.berss.platform.reports.domain.model.valueobjects.InputAmount;
+
+// Commands
+import com.berss.platform.reports.domain.model.commands.CreateMonthlySummaryCommand;
+import com.berss.platform.reports.domain.model.commands.UpdateMonthlySummaryCommand;
 
 /**
  * Monthly Summary aggregate root
@@ -11,32 +22,76 @@ import com.berss.platform.reports.domain.model.valueobjects.YearMonthPeriod;
 @Entity
 public class MonthlySummary extends AuditableAbstractAggregateRoot<MonthlySummary> {
 
-    private Long employeeId;
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "employee_id"))
+    private EmployeeId employeeId;
+
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "company_id"))
+    private CompanyId companyId;
 
     @Embedded
     private YearMonthPeriod period;
 
-    private int totalHours;
-    private int completedHours;
+    private Integer totalHours;
 
-    private double input;
-    private double score;
+    private Integer completedHours;
 
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "score"))
+    private Score score;
+
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "input_amount"))
+    private InputAmount inputAmount;
+
+    /**
+     * Default constructor
+     */
     public MonthlySummary() {}
 
-    public MonthlySummary(Long employeeId, YearMonthPeriod period, int totalHours, int completedHours, double input, double score) {
-        this.employeeId = employeeId;
-        this.period = period;
+    /**
+     * Constructor with all fields
+     */
+    public MonthlySummary(Long employeeId, Long companyId, int _year, int _month, int totalHours, int completedHours, double _inputAmount, int _score) {
+        this.employeeId = new EmployeeId(employeeId);
+        this.companyId = new CompanyId(companyId);
+        this.period = new YearMonthPeriod(_year, _month);
         this.totalHours = totalHours;
         this.completedHours = completedHours;
-        this.input = input;
-        this.score = score;
+        this.inputAmount = new InputAmount(_inputAmount);
+        this.score = new Score(_score);
+    }
+
+    /**
+     * Constructor with CreateMonthlySummaryCommand
+     */
+    public MonthlySummary(CreateMonthlySummaryCommand command) {
+        this.employeeId = new EmployeeId(command.employeeId());
+        this.companyId = new CompanyId(command.companyId());
+        this.period = new YearMonthPeriod(command.year(), command.month());
+        this.totalHours = command.totalHours();
+        this.completedHours = command.completedHours();
+        this.inputAmount = new InputAmount(command.inputAmount());
+        this.score = new Score(command.score());
     }
 
     // Getters
 
-    public Long getEmployeeId() {
-        return employeeId;
+    public double getInput() {
+        return inputAmount.getValue();
+    }
+
+    public int getScore() {
+        return score.getValue();
+    }
+
+    public long getEmployeeId() {
+        return employeeId.getValue();
+    }
+
+    public long getCompanyId() {
+        return companyId.getValue();
     }
 
     public YearMonthPeriod getPeriod() {
@@ -51,14 +106,6 @@ public class MonthlySummary extends AuditableAbstractAggregateRoot<MonthlySummar
         return completedHours;
     }
 
-    public double getInput() {
-        return input;
-    }
-
-    public double getScore() {
-        return score;
-    }
-
     // Setters / Updaters
 
     public void updateTotalHours(int totalHours) {
@@ -69,11 +116,18 @@ public class MonthlySummary extends AuditableAbstractAggregateRoot<MonthlySummar
         this.completedHours = completedHours;
     }
 
-    public void updateInput(double input) {
-        this.input = input;
+    public void updateScore(int value) {
+        this.score = new Score(value);
     }
 
-    public void updateScore(double score) {
-        this.score = score;
+    public void updateInput(double value) {
+        this.inputAmount = new InputAmount(value);
+    }
+
+    public void updateMonthlySummary(UpdateMonthlySummaryCommand command) {
+        this.totalHours = command.totalHours();
+        this.completedHours = command.completedHours();
+        this.score = new Score(command.score());
+        this.inputAmount = new InputAmount(command.inputAmount());
     }
 }
