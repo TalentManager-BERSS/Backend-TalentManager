@@ -4,7 +4,7 @@ import com.berss.platform.shared.domain.model.aggregates.AuditableAbstractAggreg
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
-/* Value Objects */
+/* Value Objects: */
 import com.berss.platform.reports.domain.model.valueobjects.CompanyId;
 import com.berss.platform.reports.domain.model.valueobjects.CreationDate;
 import com.berss.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
