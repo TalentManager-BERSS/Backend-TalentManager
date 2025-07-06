@@ -1,6 +1,6 @@
 package com.berss.platform.reports.domain.model.queries;
 
-import com.berss.platform.reports.domain.model.valueobjects.CompanyId;
+import com.berss.platform.shared.domain.model.valueobjects.CompanyId;
 
 public record GetMonthlySummariesByCompanyIdQuery(CompanyId companyId) {
     public GetMonthlySummariesByCompanyIdQuery {

@@ -1,7 +1,7 @@
 package com.berss.platform.reports.infrastructure.persistence.jpa.repositories;
 
 import com.berss.platform.reports.domain.model.aggregates.Report;
-import com.berss.platform.reports.domain.model.valueobjects.CompanyId;
+import com.berss.platform.shared.domain.model.valueobjects.CompanyId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

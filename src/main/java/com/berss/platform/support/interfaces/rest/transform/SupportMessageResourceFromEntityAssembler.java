@@ -8,7 +8,7 @@ public class SupportMessageResourceFromEntityAssembler {
         return new SupportMessageResource(
                 entity.getId(),
                 entity.getContent(),
-                entity.getCompanyId().asLong(),
+                entity.getCompanyId().companyId(),
                 entity.getRequestDate().value(),
                 entity.getReceivedAt().value(),
                 entity.getStatusAsString()

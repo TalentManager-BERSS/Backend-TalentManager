@@ -2,12 +2,12 @@ package com.berss.platform.employees.domain.model.aggregates;
 
 import com.berss.platform.employees.domain.model.commands.CreateEmployeeCommand;
 import com.berss.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
+import com.berss.platform.shared.domain.model.valueobjects.CompanyId;
 import jakarta.persistence.*;
 
 /* Value Objects */
 import com.berss.platform.employees.domain.model.valueobjects.EmployeeName;
 import com.berss.platform.employees.domain.model.valueobjects.EntryDate;
-import com.berss.platform.employees.domain.model.valueobjects.CompanyId;
 import com.berss.platform.employees.domain.model.valueobjects.TeamName;
 
 import java.time.LocalDate;

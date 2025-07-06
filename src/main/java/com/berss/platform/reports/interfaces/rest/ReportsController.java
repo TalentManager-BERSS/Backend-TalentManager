@@ -6,7 +6,6 @@ import com.berss.platform.reports.domain.model.commands.UpdateReportCommand;
 import com.berss.platform.reports.domain.model.queries.GetAllReportsQuery;
 import com.berss.platform.reports.domain.model.queries.GetReportByIdQuery;
 import com.berss.platform.reports.domain.model.queries.GetReportsByCompanyIdQuery;
-import com.berss.platform.reports.domain.model.valueobjects.CompanyId;
 import com.berss.platform.reports.domain.services.ReportCommandService;
 import com.berss.platform.reports.domain.services.ReportQueryService;
 import com.berss.platform.reports.interfaces.rest.resources.CreateReportResource;
@@ -16,6 +15,8 @@ import com.berss.platform.reports.interfaces.rest.transform.CreateReportCommandF
 import com.berss.platform.reports.interfaces.rest.transform.ReportResourceFromEntityAssembler;
 import com.berss.platform.reports.interfaces.rest.transform.UpdateReportCommandFromResourceAssembler;
 
+import com.berss.platform.shared.domain.model.valueobjects.CompanyId;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -30,6 +31,7 @@ import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+@SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping(value = "/api/v1/reports", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Reports", description = "Available Report Endpoints")

@@ -5,7 +5,6 @@ import com.berss.platform.reports.domain.model.queries.GetAllMonthlySummariesQue
 import com.berss.platform.reports.domain.model.queries.GetMonthlySummariesByCompanyIdQuery;
 import com.berss.platform.reports.domain.model.queries.GetMonthlySummariesByEmployeeIdQuery;
 import com.berss.platform.reports.domain.model.queries.GetMonthlySummaryByIdQuery;
-import com.berss.platform.reports.domain.model.valueobjects.CompanyId;
 import com.berss.platform.reports.domain.model.valueobjects.EmployeeId;
 import com.berss.platform.reports.domain.services.MonthlySummaryCommandService;
 import com.berss.platform.reports.domain.services.MonthlySummaryQueryService;
@@ -16,6 +15,8 @@ import com.berss.platform.reports.interfaces.rest.transform.CreateMonthlySummary
 import com.berss.platform.reports.interfaces.rest.transform.MonthlySummaryResourceFromEntityAssembler;
 import com.berss.platform.reports.interfaces.rest.transform.UpdateMonthlySummaryCommandFromResourceAssembler;
 
+import com.berss.platform.shared.domain.model.valueobjects.CompanyId;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -35,6 +36,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
  *     All monthly summary related endpoints.
  * </p>
  */
+
+@SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping(value = "/api/v1/monthly-summaries", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Monthly Summaries", description = "Available Monthly Summary Endpoints")
