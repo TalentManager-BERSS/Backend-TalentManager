@@ -1,10 +1,10 @@
 package com.berss.platform.support.domain.model.aggregates;
 
+import com.berss.platform.shared.domain.model.valueobjects.CompanyId;
 import com.berss.platform.support.domain.model.commands.CreateSupportMessageCommand;
 import com.berss.platform.support.domain.model.commands.UpdateSupportMessageCommand;
 import com.berss.platform.support.domain.model.entities.Status;
 import com.berss.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
-import com.berss.platform.support.domain.model.valueobjects.CompanyId;
 import com.berss.platform.support.domain.model.valueobjects.ReceivedAt;
 import com.berss.platform.support.domain.model.valueobjects.RequestDate;
 import jakarta.persistence.*;

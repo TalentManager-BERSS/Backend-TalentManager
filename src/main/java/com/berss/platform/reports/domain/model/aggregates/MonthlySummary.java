@@ -1,13 +1,12 @@
 package com.berss.platform.reports.domain.model.aggregates;
 
-import com.berss.platform.reports.domain.model.commands.UpdateReportCommand;
 import com.berss.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
+import com.berss.platform.shared.domain.model.valueobjects.CompanyId;
 import jakarta.persistence.*;
 
 // Value Objects
 
 import com.berss.platform.reports.domain.model.valueobjects.EmployeeId;
-import com.berss.platform.reports.domain.model.valueobjects.CompanyId;
 import com.berss.platform.reports.domain.model.valueobjects.YearMonthPeriod;
 import com.berss.platform.reports.domain.model.valueobjects.Score;
 import com.berss.platform.reports.domain.model.valueobjects.InputAmount;

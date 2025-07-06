@@ -5,8 +5,7 @@ import java.time.LocalDate;
 public record CreateReportCommand(
     String title,
     String content,
-    Long companyId,
-    LocalDate createdAt
+    Long companyId
 ) {
 
     public CreateReportCommand {
@@ -16,10 +15,6 @@ public record CreateReportCommand(
 
         if (content == null || content.isBlank()) {
             throw new IllegalArgumentException("content cannot be null or blank");
-        }
-
-        if (createdAt == null || createdAt.isAfter(LocalDate.now())) {
-            throw new IllegalArgumentException("createdAt cannot be null or in the future");
         }
 
         if (companyId == null || companyId <= 0) {

@@ -32,7 +32,7 @@ public class SupportMessageQueryServiceImpl implements SupportMessageQueryServic
     @Override
     public List<SupportMessage> handle(GetSupportMessagesByCompanyIdQuery query) {
         return supportMessageRepository.findAll().stream()
-                .filter(msg -> msg.getCompanyId() != null && msg.getCompanyId().asLong().equals(query.companyId()))
+                .filter(msg -> msg.getCompanyId() != null && msg.getCompanyId().companyId().equals(query.companyId()))
                 .collect(Collectors.toList());
     }
 

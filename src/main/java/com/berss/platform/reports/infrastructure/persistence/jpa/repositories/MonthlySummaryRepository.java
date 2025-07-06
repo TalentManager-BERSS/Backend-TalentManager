@@ -1,13 +1,10 @@
 package com.berss.platform.reports.infrastructure.persistence.jpa.repositories;
 
 import com.berss.platform.reports.domain.model.aggregates.MonthlySummary;
-import com.berss.platform.reports.domain.model.valueobjects.CompanyId;
 import com.berss.platform.reports.domain.model.valueobjects.EmployeeId;
+import com.berss.platform.shared.domain.model.valueobjects.CompanyId;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-import java.time.Month;
-import java.time.Year;
 import java.util.List;
 import java.util.Optional;
 

@@ -14,6 +14,7 @@ import com.berss.platform.employees.interfaces.rest.transform.UpdateEmployeeComm
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+@SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping(value = "/api/v1/employees", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Employee", description = "Available Employee Endpoints")
@@ -67,7 +69,7 @@ public class EmployeesController {
     }
 
     @GetMapping
-    @Operation(summary = "Get all employee", description = "Get all employee")
+    @Operation(summary = "Get all employees", description = "Get all employee")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Employee found"),
             @ApiResponse(responseCode = "404", description = "Employee not found")})
