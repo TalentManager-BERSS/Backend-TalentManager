@@ -12,6 +12,6 @@ public class ReportResourceFromEntityAssembler {
      */
 
     public static ReportResource toResourcefromEntity(Report entity) {
-        return new ReportResource(entity.getId(), entity.getTitle(), entity.getContent(), entity.getCompanyId());
+        return new ReportResource(entity.getId(), entity.getTitle(), entity.getContent(), entity.getCompanyId(),  entity.getMonthlySummaryId());
     }
 }

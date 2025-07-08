@@ -1,17 +1,18 @@
 package com.berss.platform.reports.interfaces.rest.resources;
 
-public record CreateMonthlySummaryResource(
+public record CreateDailySummaryResource(
         Long employeeId,
         Long companyId,
+        Integer day,
         Integer month,
         Integer year,
-        Integer totalHours,
-        Integer completedHours,
+        Integer entryTime,
+        Integer exitTime,
         Double inputAmount,
         Integer score
 ) {
 
-    public CreateMonthlySummaryResource {
+    public CreateDailySummaryResource {
         if (employeeId == null || employeeId <= 0) {
             throw new IllegalArgumentException("Employee ID cannot be null or less than 1");
         }
@@ -28,12 +29,12 @@ public record CreateMonthlySummaryResource(
             throw new IllegalArgumentException("Year cannot be null, less than 2000 or greater than 2100");
         }
 
-        if (totalHours == null || totalHours < 0) {
-            throw new IllegalArgumentException("TotalHours cannot be null or less than 1");
+        if (entryTime == null || entryTime < 0 || entryTime > 24) {
+            throw new IllegalArgumentException("entryTime cannot be null, less than 0 or greater than 24");
         }
 
-        if (completedHours == null || completedHours < 0) {
-            throw new IllegalArgumentException("CompletedHours cannot be null or less than 1");
+        if (exitTime == null || exitTime < 0 || exitTime > 24) {
+            throw new IllegalArgumentException("exitTime cannot be null, less than 0 or greater than 24");
         }
 
         if (inputAmount == null || inputAmount < 0) {

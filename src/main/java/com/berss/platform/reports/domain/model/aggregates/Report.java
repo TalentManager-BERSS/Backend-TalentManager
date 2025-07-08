@@ -3,17 +3,13 @@ package com.berss.platform.reports.domain.model.aggregates;
 import com.berss.platform.reports.domain.model.commands.UpdateReportCommand;
 import com.berss.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
 import com.berss.platform.shared.domain.model.valueobjects.CompanyId;
+import com.berss.platform.reports.domain.model.valueobjects.MonthlySummaryId;
+
 import jakarta.persistence.*;
 
-/* Value Objects */
-
-/* Commands */
 import com.berss.platform.reports.domain.model.commands.CreateReportCommand;
 import lombok.Getter;
 
-/**
- * Report Aggregate Root
- */
 @Entity
 public class Report extends AuditableAbstractAggregateRoot<Report> {
 
@@ -25,37 +21,41 @@ public class Report extends AuditableAbstractAggregateRoot<Report> {
     private String content;
 
     @Embedded
-    @Column(name = "companyId")
+    @AttributeOverride(name = "companyId", column = @Column(name = "company_id"))
     private CompanyId companyId;
 
-    /**
-     * Default constructor
-     */
+    @Getter
+    @Embedded
+    @AttributeOverride(name = "monthlySummaryId", column = @Column(name = "monthly_summary_id"))
+    private MonthlySummaryId monthlySummaryId;
+
+    // Constructors
+
     public Report() {}
 
-    /**
-     * Constructor with all fields
-     */
-    public Report(String title, String content, Long companyId) {
+    public Report(String title, String content, Long companyId, Long monthlySummaryId) {
         this.title = title;
         this.content = content;
         this.companyId = new CompanyId(companyId);
+        this.monthlySummaryId = new MonthlySummaryId(monthlySummaryId);
     }
 
-    /**
-     * Constructor with CreateReportCommand
-     */
     public Report(CreateReportCommand command) {
         this.title = command.title();
         this.content = command.content();
         this.companyId = new CompanyId(command.companyId());
+        this.monthlySummaryId = new MonthlySummaryId(command.monthlySummaryId());
     }
 
     public Long getCompanyId() {
         return companyId.getValue();
     }
 
-    // Setters / Updaters
+    public Long getMonthlySummaryId() {
+        return monthlySummaryId.getValue();
+    }
+
+    // Updaters
 
     public void updateTitle(String title) {
         this.title = title;
