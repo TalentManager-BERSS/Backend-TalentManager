@@ -5,7 +5,9 @@ import java.time.LocalDate;
 public record CreateReportResource(
         String title,
         String content,
-        Long companyId
+        Long companyId,
+        Long monthlySummaryId
+
 )
 {
     public CreateReportResource {

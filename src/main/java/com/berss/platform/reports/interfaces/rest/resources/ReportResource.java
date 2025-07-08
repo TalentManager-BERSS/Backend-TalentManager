@@ -6,5 +6,6 @@ public record ReportResource(
         Long id,
         String title,
         String content,
-        Long companyId
+        Long companyId,
+        Long monthlySummaryId
 ) {}

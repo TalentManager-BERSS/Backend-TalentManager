@@ -1,17 +1,18 @@
 package com.berss.platform.reports.domain.model.commands;
 
-public record CreateMonthlySummaryCommand(
+public record CreateDailySummaryCommand(
         Long employeeId,
         Long companyId,
+        Integer day,
         Integer month,
         Integer year,
-        Integer totalHours,
-        Integer completedHours,
+        Integer entryTime,
+        Integer exitTime,
         Double inputAmount,
         Integer score
 ) {
 
-    public CreateMonthlySummaryCommand {
+    public CreateDailySummaryCommand {
         if (employeeId == null || employeeId <= 0) {
             throw new IllegalArgumentException("employee id cannot be null or less than 1");
         }
@@ -20,7 +21,11 @@ public record CreateMonthlySummaryCommand(
             throw new IllegalArgumentException("company id cannot be null or less than 1");
         }
 
-        if (month == null || month < 1 || month > 12) {
+        if (day == null || day <= 0 || day > 31) {
+            throw new IllegalArgumentException("day cannot be null, less than 1 or greater than 31");
+        }
+
+        if (month == null || month <= 1 || month > 12) {
             throw new IllegalArgumentException("month cannot be null, less than 1 or greater than 12");
         }
 
@@ -28,16 +33,12 @@ public record CreateMonthlySummaryCommand(
             throw new IllegalArgumentException("year cannot be null, less than 2000 or greater than 2100");
         }
 
-        if (totalHours == null || totalHours < 0) {
-            throw new IllegalArgumentException("totalHours cannot be null or less than 1");
+        if (entryTime == null || entryTime < 0 || entryTime > 24) {
+            throw new IllegalArgumentException("entryTime cannot be null, less than 0 or greater than 24");
         }
 
-        if (completedHours == null || completedHours < 0) {
-            throw new IllegalArgumentException("completedHours cannot be null or less than 1");
-        }
-
-        if (inputAmount == null || inputAmount < 0) {
-            throw new IllegalArgumentException("inputAmount cannot be null or less than 0");
+        if (exitTime == null || exitTime < 0 || exitTime > 24) {
+            throw new IllegalArgumentException("exitTime cannot be null, less than 0 or greater than 24");
         }
 
         if (score == null || score < 0 || score > 10) {
